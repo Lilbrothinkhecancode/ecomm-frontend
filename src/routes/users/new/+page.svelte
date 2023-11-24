@@ -1,6 +1,5 @@
 <script>
     import { goto } from '$app/navigation';
-    import { authenticateUser } from '/src/utils/auth.js';
     let formErrors = {};
 
     function postSignUp() {
@@ -8,12 +7,15 @@
       window.alert(successMessage);
       goto('/');
     }
-  
+
     async function createUser(evt) {
       evt.preventDefault()
-  
+      console.log('Password:', evt.target['password'].value);
+      console.log('Password confirmation:', evt.target['password-confirmation'].value);
       if (evt.target['password'].value != evt.target['password-confirmation'].value) {
-        formErrors['password'] = { message: 'Password confirmation does not match' };
+        console.log(formErrors);
+        formErrors = { ...formErrors, password: { message: 'Password confirmation does not match' } };
+        console.log(formErrors);
         return;
       }
   
@@ -24,7 +26,9 @@
         passwordConfirm: evt.target['password-confirmation'].value
       };
   
-      const resp = await fetch('http://localhost:8080', {
+      console.log(userData);
+
+      const resp = await fetch('http://localhost:8080/users', {
         method: 'POST',
         mode: 'cors',
         headers: {
@@ -35,15 +39,13 @@
   
       if (resp.status == 200) {
         goto('/');
-        if (resp.success) {
+  
+        if (res.success) {
           postSignUp();
         } else {
           throw 'Sign up succeeded but authentication failed';
         }
-      } else {
-        const res = await resp.json();
-        formErrors = res.data;
-      }
+      } 
     }
   </script>
 

@@ -64,9 +64,10 @@ export async function isLoggedIn() {
   }
 }
 
-export async function authenticateUser(username, password) {
+export async function authenticateUser(name, password) {
+  console.log('Authenticating user:', { name, password });
   const resp = await fetch(
-    PUBLIC_BACKEND_BASE_URL,
+    'http://localhost:8080/users',
     {
       method: 'POST',
       mode: 'cors',
@@ -74,7 +75,7 @@ export async function authenticateUser(username, password) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        identity: username,
+        identity: name,
         password
       })
     }
