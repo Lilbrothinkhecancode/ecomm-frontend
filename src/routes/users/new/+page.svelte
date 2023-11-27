@@ -40,7 +40,7 @@
       if (resp.status == 200) {
         goto('/');
   
-        if (res.success) {
+        if (Response.success) {
           postSignUp();
         } else {
           throw 'Sign up succeeded but authentication failed';

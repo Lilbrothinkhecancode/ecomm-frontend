@@ -64,10 +64,10 @@ export async function isLoggedIn() {
   }
 }
 
-export async function authenticateUser(name, password) {
-  console.log('Authenticating user:', { name, password });
+export async function authenticateUser(email, password) {
+  console.log('Authenticating user:', { email, password });
   const resp = await fetch(
-    'http://localhost:8080/users',
+    'http://localhost:8080/sign-in',
     {
       method: 'POST',
       mode: 'cors',
@@ -75,7 +75,7 @@ export async function authenticateUser(name, password) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        identity: name,
+        identity: email,
         password
       })
     }

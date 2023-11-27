@@ -10,12 +10,13 @@
     goto('/');
     }
 
-    function navAbout() {
-    goto('/about');
+    function navLogin() {
+    goto('/users/sign-in');
     }
   </script>
 
 <button on:click={navMain}>Main Page</button>
 <button on:click={navigateToSignUp}>Sign Up</button>
+<button on:click={navLogin}>Sign In</button>
 
   <slot />
